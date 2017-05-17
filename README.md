@@ -1,2 +1,2 @@
-# MultiChainJavaLib
+# MultiChainJavaLibrary
 A library to execute multichain command line into Java program
