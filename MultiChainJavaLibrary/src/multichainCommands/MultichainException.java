@@ -1,4 +1,4 @@
-package multichain;
+package multichainCommands;
 
 public class MultichainException extends Exception{
 	/**

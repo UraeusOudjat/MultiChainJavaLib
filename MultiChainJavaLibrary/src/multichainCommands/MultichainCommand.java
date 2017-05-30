@@ -1,4 +1,4 @@
-package multichain;
+package multichainCommands;
 
 public enum MultichainCommand {
 	CREATEMULTISIG,GETBLOCKCHAINPARAMS,GETINFO,HELP,STOP,VALIDATEADDRESS,

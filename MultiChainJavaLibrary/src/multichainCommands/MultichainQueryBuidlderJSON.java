@@ -1,12 +1,11 @@
-package multichain;
+package multichainCommands;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class MultichainQueryBuidlder {
+public class MultichainQueryBuidlderJSON {
 
-	private static String CHAIN = "";
 	private static boolean header = false;
 
 	private static String formatedArray(String[] array, boolean formatWithArray) {
@@ -50,7 +49,7 @@ public class MultichainQueryBuidlder {
 	}
 
 	public static void initializeChain(String nameChain) {
-		CHAIN = nameChain;
+		MultichainGlobalValues.CHAIN_NAME = nameChain;
 	}
 
 	public static String executeProcess(MultichainCommand command) {
@@ -138,7 +137,7 @@ public class MultichainQueryBuidlder {
 	 */
 	public static String execute(MultichainCommand command, String... parameters) {
 
-		if (!CHAIN.equals("")) {
+		if (!MultichainGlobalValues.CHAIN_NAME.equals("")) {
 			Runtime rt = Runtime.getRuntime();
 			Process pr;
 			String result = "";
@@ -149,9 +148,9 @@ public class MultichainQueryBuidlder {
 					for (String parameter : parameters) {
 						params = params.concat(parameter + " ");
 					}
-					pr = rt.exec("multichain-cli " + CHAIN + " " + command.toString().toLowerCase() + " " + params);
+					pr = rt.exec("multichain-cli " + MultichainGlobalValues.CHAIN_NAME + " " + command.toString().toLowerCase() + " " + params);
 				} else {
-					pr = rt.exec("multichain-cli " + CHAIN + " " + command.toString().toLowerCase());
+					pr = rt.exec("multichain-cli " + MultichainGlobalValues.CHAIN_NAME + " " + command.toString().toLowerCase());
 				}
 
 				BufferedReader stdInput = new BufferedReader(new InputStreamReader(pr.getInputStream()));
@@ -181,16 +180,16 @@ public class MultichainQueryBuidlder {
 				return result;
 			}
 		} else {
-			return "ERROR, CHAIN NAME ARE EMPTY !";
+			return "ERROR, MultichainGlobalValues.CHAIN_NAME NAME ARE EMPTY !";
 		}
 
 	}
 
 	private static String removeHeader(String result) {
 		String resultWithoutHeader = "";
-		int size = 16 + CHAIN.length();
+		int size = 16 + MultichainGlobalValues.CHAIN_NAME.length();
 		int index = 0;
-		index = result.indexOf("\"chain_name\":\"" + CHAIN + "\"");
+		index = result.indexOf("\"chain_name\":\"" + MultichainGlobalValues.CHAIN_NAME + "\"");
 		resultWithoutHeader = resultWithoutHeader.concat(result.substring(index + size));
 		return resultWithoutHeader;
 	}
